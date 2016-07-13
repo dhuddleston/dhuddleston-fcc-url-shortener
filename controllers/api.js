@@ -28,10 +28,10 @@ module.exports = function(app, mongoose){
     
     function getUrl(req, res){
         var url = (process.env.APP_URL + req.params.url);
-        ShortUrl.findOne({ShortenedUrl: url}, function(err, result){
-          if(err) throw err;
-          else if(result)
-          {
+        ShortUrl.findOne({ shortenedUrl: url }, 'originalUrl shortenedUrl', function (err, result) {
+          if(err) { console.log('error', err); }
+              console.log('result',result);
+          if( result ) {
               console.log('Found original url: ' + result);
               console.log(req.params.url);
               res.redirect(result.originalUrl);
@@ -41,9 +41,9 @@ module.exports = function(app, mongoose){
               res.send({
                  "error": "The requested URL was not found in the database." 
               });
-              console.log(url);
           }
       }); 
+
     }
     
     app.get('/new/:url*', postUrl);
@@ -54,7 +54,7 @@ module.exports = function(app, mongoose){
         if(validUrl.isUri(url))
         {
             shortUrl.originalUrl=url;
-            shortUrl.shortenedUrl= process.env.APP_URL + makeShortUrl();
+            shortUrl.shortenedUrl=process.env.APP_URL + makeShortUrl();
             shortUrl.error = null;
             
             shortUrl.save(function(err, data){
