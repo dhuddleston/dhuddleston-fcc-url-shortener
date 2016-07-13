@@ -1,21 +1,24 @@
 {
   "name": "url-shortener",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "main": "app.js",
   "description": "FreeCodeCamp API Basejump: URL Shortener Microservice",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "dotenv": "^2.0.0",
     "express": "~4.13.4",
     "jade": "~1.11.0",
+    "mongoose": "^4.5.4",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "valid-url": "^1.0.9"
   },
   "author": "Daniel Huddleston"
 }
