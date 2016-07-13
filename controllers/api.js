@@ -2,17 +2,38 @@ var express = require('express');
 var validUrl = require('valid-url');
 
 var ShortUrl = require('../models/shortUrl');
-var router = express.Router();
+//var router = express.Router();
 
 // Using module.exports so that the Express app and database can be used
 module.exports = function(app, mongoose){
-    router.route('/url')
-    .get(function(req, res){
-       ShortUrl.find({ShortUrl: req}, function(err, result){
+    // router.route('/url')
+    // .get(function(req, res){
+    //   ShortUrl.find({ShortUrl: req}, function(err, result){
+    //       if(err) throw err;
+    //       if(result)
+    //       {
+    //           console.log('Found original url: ' + result);
+    //           res.redirect(result.originalUrl);
+    //       }
+    //       else
+    //       {
+    //           res.send({
+    //              "error": "The requested URL was not found in the database." 
+    //           });
+    //       }
+    //   }); 
+    // });
+    
+    app.get('/:url', getUrl);
+    
+    function getUrl(req, res){
+        var url = (process.env.APP_URL + req.params.url);
+        ShortUrl.findOne({ShortenedUrl: url}, function(err, result){
           if(err) throw err;
-          if(result)
+          else if(result)
           {
               console.log('Found original url: ' + result);
+              console.log(req.params.url);
               res.redirect(result.originalUrl);
           }
           else
@@ -20,9 +41,10 @@ module.exports = function(app, mongoose){
               res.send({
                  "error": "The requested URL was not found in the database." 
               });
+              console.log(url);
           }
-       }); 
-    });
+      }); 
+    }
     
     app.get('/new/:url*', postUrl);
     
