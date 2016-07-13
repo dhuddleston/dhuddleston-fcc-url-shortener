@@ -1,10 +1,6 @@
 var express = require('express');
 var validUrl = require('valid-url');
 
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-
 var ShortUrl = require('../models/shortUrl');
 var router = express.Router();
 

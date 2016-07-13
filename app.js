@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 
-// var routes = require('./routes/index');
+var routes = require('./routes/index');
 // var users = require('./routes/users');
 var api = require('./controllers/api');
 
@@ -19,6 +19,10 @@ mongoose.connect(process.env.MONGO_URI);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// To render the homepage
+app.use('/', routes);
+
+// To use the API
 api(app, mongoose);
 
 var port = process.env.PORT || 8080;
