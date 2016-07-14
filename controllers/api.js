@@ -2,28 +2,9 @@ var express = require('express');
 var validUrl = require('valid-url');
 
 var ShortUrl = require('../models/shortUrl');
-//var router = express.Router();
 
 // Using module.exports so that the Express app and database can be used
 module.exports = function(app, mongoose){
-    // router.route('/url')
-    // .get(function(req, res){
-    //   ShortUrl.find({ShortUrl: req}, function(err, result){
-    //       if(err) throw err;
-    //       if(result)
-    //       {
-    //           console.log('Found original url: ' + result);
-    //           res.redirect(result.originalUrl);
-    //       }
-    //       else
-    //       {
-    //           res.send({
-    //              "error": "The requested URL was not found in the database." 
-    //           });
-    //       }
-    //   }); 
-    // });
-    
     app.get('/:url', getUrl);
     
     function getUrl(req, res){
@@ -46,6 +27,7 @@ module.exports = function(app, mongoose){
 
     }
     
+    // The * at the end allows us to pass in URLs with protocols such as HTTPS://
     app.get('/new/:url*', postUrl);
     
     function postUrl(req, res){
@@ -53,18 +35,32 @@ module.exports = function(app, mongoose){
         var url = req.url.slice(5);
         if(validUrl.isUri(url))
         {
-            shortUrl.originalUrl=url;
-            shortUrl.shortenedUrl=process.env.APP_URL + makeShortUrl();
-            shortUrl.error = null;
             
-            shortUrl.save(function(err, data){
-               if(err)
+            ShortUrl.findOne({'originalUrl': url}, 'originalUrl shortenedUrl', function(err, existingUrl){
+               if(err) {res.json({error: 'An error occured'})}
+               
+               if(existingUrl)
                {
-                   res.send(err);
+                   res.send
+                   ({
+                       "message": "This URL already exists in the database at: ", url:existingUrl
+                   });
                }
                else
                {
-                   res.json(data);
+                    shortUrl.originalUrl=url;
+                    shortUrl.shortenedUrl=process.env.APP_URL + makeShortUrl();
+                    
+                    shortUrl.save(function(err, data){
+                       if(err)
+                       {
+                           res.send(err);
+                       }
+                       else
+                       {
+                           res.json(data);
+                       }
+                    });
                }
             });
         }
@@ -75,6 +71,7 @@ module.exports = function(app, mongoose){
         }
     }
     
+    // Choosing a random number between 1000 and 9999 will create a random 4 digit code
     function makeShortUrl(){
         var shortNum = Math.floor(Math.random() * 9999) + 1000;
         return shortNum.toString();

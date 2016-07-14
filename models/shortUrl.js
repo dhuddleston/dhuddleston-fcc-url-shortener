@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var shortUrlSchema = new Schema({
    originalUrl: String,
-   shortenedUrl: String,
-   error: String
+   shortenedUrl: String
 });
 
 module.exports = mongoose.model('ShortUrl', shortUrlSchema);
