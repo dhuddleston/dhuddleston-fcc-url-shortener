@@ -1,4 +1,3 @@
-var express = require('express');
 var validUrl = require('valid-url');
 
 var ShortUrl = require('../models/shortUrl');
