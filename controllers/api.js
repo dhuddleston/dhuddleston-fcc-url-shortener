@@ -10,10 +10,10 @@ module.exports = function(app, mongoose){
         var url = (process.env.APP_URL + req.params.url);
         ShortUrl.findOne({ shortenedUrl: url }, 'originalUrl shortenedUrl', function (err, result) {
           if(err) { console.log('error', err); }
-              console.log('result',result);
+              //console.log('result',result);
           if( result ) {
-              console.log('Found original url: ' + result);
-              console.log(req.params.url);
+              //console.log('Found original url: ' + result);
+              //console.log(req.params.url);
               res.redirect(result.originalUrl);
           }
           else
@@ -66,7 +66,7 @@ module.exports = function(app, mongoose){
         else
         {
             res.send("Not a valid URL. Please try again");
-            console.log(url);
+            //console.log(url);
         }
     }
     
