@@ -10,9 +10,14 @@ block content
       li 2) If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.
       li 3) When I visit that shortened URL, it will redirect me to my original link.
       
-    h2 Example usage:
-      code Placeholder
-      code Placholder
+    h4 Example Input:
+      code https://bitroku.herokuapp.com/new/https://www.freecodecamp.com
       
-    h2 Example output:
-    code Placeholder
+    h4 Example Output:
+      code {"__v":0,"shortenedUrl":"https://bitroku.herokuapp.com/2130","originalUrl":"https://www.freecodecamp.com","_id":"57884ea241f3e0030026561e"}
+    
+    h4 Example Usage:
+      code https://bitroku.herokuapp.com/2130
+      
+    h4 Redirects to the original URL at:
+      code https://www.freecodecamp.com
