@@ -1,5 +1,5 @@
 # FreeCodeCamp API Basejump: URL Shortener Microservice
-Created by dhuddleston using MongoDB, Express.js, and Node.js
+Created by Daniel Huddleston (dhuddleston) using MongoDB, Mongoose, Express.js, Jade, and Node.js
 
 ## User Stories:
 1. I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
@@ -8,9 +8,17 @@ Created by dhuddleston using MongoDB, Express.js, and Node.js
 
 ## Example Input:
 ```
-Placeholder
+https://bitroku.herokuapp.com/new/https://www.freecodecamp.com
 ```
-## Example Output
+## Example Output:
 ```
-Placeholder
+{"__v":0,"shortenedUrl":"https://bitroku.herokuapp.com/2130","originalUrl":"https://www.freecodecamp.com","_id":"57884ea241f3e0030026561e"}
+```
+## Example Usage:
+```
+https://bitroku.herokuapp.com/2130
+```
+## Redirects to the original URL at:
+```
+https://www.freecodecamp.com
 ```
