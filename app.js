@@ -13,7 +13,7 @@ var api = require('./controllers/api');
 
 // var mongo = require('mongodb').MongoClient
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGOLAB_URI);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
